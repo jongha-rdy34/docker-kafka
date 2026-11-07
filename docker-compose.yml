@@ -1,0 +1,76 @@
+# docker-kafka 실습용 Kafka (KRaft, ZooKeeper 없음) — cp-kafka 7.6.1
+#
+#   기본(브로커 1대, 9092)       : docker compose up -d                    → ws3-2~4, hw3-1, hw3-2, ws4-*, hw4-*
+#   클러스터(브로커 3대, 9092~94): docker compose --profile cluster up -d  → ws3-5
+#   명령 형식                    : docker compose exec kafka kafka-topics --list --bootstrap-server localhost:9092
+#   종료                         : docker compose --profile cluster down   (볼륨이 없어 토픽·메시지도 함께 삭제)
+#
+# 구조: controller(KRaft 컨트롤러 전용)가 네트워크와 포트를 갖고, 브로커들은 그 네트워크를 공유합니다.
+#      그래서 localhost:9092/9093/9094 가 호스트(Python 노트북)와 컨테이너 안에서 똑같이 동작하고,
+#      ws3-5에서 리더 브로커(kafka, kafka-2, kafka-3 중 무엇이든)를 꺼도 클러스터가 유지됩니다.
+#      controller 서비스는 끄지 마세요(모든 브로커가 함께 멈춤).
+name: docker-kafka
+
+x-kafka-common: &kafka-common
+  image: confluentinc/cp-kafka:7.6.1
+  network_mode: service:controller
+  depends_on:
+    - controller
+  restart: "no"
+
+x-broker-env: &broker-env
+  CLUSTER_ID: "ZG9ja2VyLWthZmthUHJhYw"
+  KAFKA_PROCESS_ROLES: broker
+  KAFKA_CONTROLLER_QUORUM_VOTERS: 100@localhost:29093
+  KAFKA_CONTROLLER_LISTENER_NAMES: CONTROLLER
+  KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: PLAINTEXT:PLAINTEXT,CONTROLLER:PLAINTEXT
+  KAFKA_INTER_BROKER_LISTENER_NAME: PLAINTEXT
+  KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
+  KAFKA_TRANSACTION_STATE_LOG_REPLICATION_FACTOR: 1
+  KAFKA_TRANSACTION_STATE_LOG_MIN_ISR: 1
+  KAFKA_GROUP_INITIAL_REBALANCE_DELAY_MS: 0
+  KAFKA_DELETE_TOPIC_ENABLE: "true"
+  KAFKA_HEAP_OPTS: "-Xms256m -Xmx512m"
+
+services:
+  controller:
+    image: confluentinc/cp-kafka:7.6.1
+    ports:
+      - "9092:9092"   # broker 1 (kafka)
+      - "9093:9093"   # broker 2 (kafka-2, --profile cluster)
+      - "9094:9094"   # broker 3 (kafka-3, --profile cluster)
+    environment:
+      CLUSTER_ID: "ZG9ja2VyLWthZmthUHJhYw"
+      KAFKA_NODE_ID: 100
+      KAFKA_PROCESS_ROLES: controller
+      KAFKA_CONTROLLER_QUORUM_VOTERS: 100@localhost:29093
+      KAFKA_LISTENERS: CONTROLLER://localhost:29093
+      KAFKA_CONTROLLER_LISTENER_NAMES: CONTROLLER
+      KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: CONTROLLER:PLAINTEXT
+      KAFKA_HEAP_OPTS: "-Xms128m -Xmx256m"
+
+  kafka:            # broker.id 1 — localhost:9092 (기본)
+    <<: *kafka-common
+    environment:
+      <<: *broker-env
+      KAFKA_NODE_ID: 1
+      KAFKA_LISTENERS: PLAINTEXT://0.0.0.0:9092
+      KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://localhost:9092
+
+  kafka-2:          # broker.id 2 — localhost:9093 (ws3-5)
+    <<: *kafka-common
+    profiles: ["cluster"]
+    environment:
+      <<: *broker-env
+      KAFKA_NODE_ID: 2
+      KAFKA_LISTENERS: PLAINTEXT://0.0.0.0:9093
+      KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://localhost:9093
+
+  kafka-3:          # broker.id 3 — localhost:9094 (ws3-5)
+    <<: *kafka-common
+    profiles: ["cluster"]
+    environment:
+      <<: *broker-env
+      KAFKA_NODE_ID: 3
+      KAFKA_LISTENERS: PLAINTEXT://0.0.0.0:9094
+      KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://localhost:9094
