@@ -1,0 +1,4 @@
+docker compose -f tasks/q04/compose.yml up -d
+docker compose -f tasks/q04/compose.yml ps
+docker compose -f tasks/q04/compose.yml exec probe wget -qO- http://web
+docker compose -f tasks/q04/compose.yml down

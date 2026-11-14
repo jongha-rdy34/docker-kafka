@@ -1,0 +1,17 @@
+version: "3"   # 최신 Compose에서는 "obsolete" 경고만 출력되고 무시됩니다.
+
+services:
+  # 웹 서버: nginx:alpine, 컨테이너 이름 delivery-web, 호스트 8081 → 컨테이너 80
+  web:
+    ______: nginx:alpine
+    ______: delivery-web
+    ______:
+      - "______"
+    ______:
+      - ./index.html:______
+
+  # 테스트용 컨테이너: alpine, 컨테이너 이름 delivery-api, 종료되지 않도록 대기
+  api:
+    image: ______
+    container_name: delivery-api
+    ______: ["sleep", "infinity"]

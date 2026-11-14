@@ -1,0 +1,16 @@
+{
+  "응시용_python_syntax": 10,
+  "정답_python_syntax": 10,
+  "answer_terminal_commands": "all start with docker",
+  "question_count": 12,
+  "points": 100,
+  "minutes": 110,
+  "정답_test_exit": 0,
+  "응시용_test_exit": 1,
+  "kafka_compose_exit": 0,
+  "web_student_compose_exit": 0,
+  "web_solution_compose_exit": 0,
+  "kafka_compose_note": "직접 docker compose config --quiet 재검사 종료 코드 0",
+  "compose_recheck": "직접 실행한 3개 config --quiet가 오류 출력 없이 종료 코드 0으로 완료",
+  "pdf_visual_review": "문제 7쪽, 정답 13쪽 전체 렌더링과 접촉시트 점검; 긴 코드 페이지 확대 확인"
+}

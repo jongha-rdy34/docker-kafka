@@ -1,0 +1,3 @@
+docker run --name mk-once alpine:3.21.3 echo completed
+docker ps -a --filter name=mk-once
+docker rm mk-once

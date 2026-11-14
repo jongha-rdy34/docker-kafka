@@ -1,0 +1,9 @@
+name: dk-web
+services:
+  web:
+    image: nginx:1.27.4-alpine
+    # TODO: 호스트 8088 -> 컨테이너 80
+    # TODO: ./index.html -> /usr/share/nginx/html/index.html (읽기 전용)
+  probe:
+    image: alpine:3.21.3
+    command: ["sleep", "infinity"]

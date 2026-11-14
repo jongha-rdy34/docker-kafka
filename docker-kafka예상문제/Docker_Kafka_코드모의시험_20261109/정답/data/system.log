@@ -1,0 +1,7 @@
+INFO boot
+ERROR sensor-B
+WARN queue
+ERROR sensor-A
+ERROR sensor-B
+error lower-case
+INFO done

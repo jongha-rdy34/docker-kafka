@@ -1,0 +1,4 @@
+docker compose exec kafka kafka-topics --bootstrap-server localhost:9092 --create --topic mk-cli --partitions 1 --replication-factor 1
+docker compose exec kafka kafka-console-producer --bootstrap-server localhost:9092 --topic mk-cli
+# 위 프로듀서의 입력창에 data/cli_messages.txt의 세 줄을 입력한 뒤 Ctrl+C
+docker compose exec kafka kafka-console-consumer --bootstrap-server localhost:9092 --topic mk-cli --partition 0 --from-beginning --max-messages 3 --timeout-ms 10000

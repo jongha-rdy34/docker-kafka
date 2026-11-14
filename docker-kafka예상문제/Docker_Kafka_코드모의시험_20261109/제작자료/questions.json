@@ -1,0 +1,110 @@
+[
+  {
+    "n": 1,
+    "title": "종료된 컨테이너 찾기",
+    "points": 6,
+    "min": 5,
+    "file": "answers/q01.txt",
+    "body": "택배 처리 작업이 한 번 실행되고 종료됩니다. alpine:3.21.3으로 mk-once 컨테이너를 만들고 echo completed를 실행하세요. 자동 삭제 옵션은 사용하지 않습니다. 종료된 mk-once를 조회한 뒤 삭제하는 명령을 순서대로 작성하세요.\n예상 결과: completed 출력, 조회 시 Exited 상태, 삭제 후 해당 컨테이너 없음. 무관한 컨테이너를 삭제하는 명령은 허용하지 않습니다.",
+    "rubric": "생성·실행 2 / 종료된 컨테이너 조회 2 / 지정 컨테이너 삭제 2"
+  },
+  {
+    "n": 2,
+    "title": "Flask 이미지와 포트 오류 수정",
+    "points": 10,
+    "min": 12,
+    "file": "tasks/q02/Dockerfile, tasks/q02/app.py, answers/q02.txt",
+    "body": "시작 Dockerfile을 완성하고 app.py의 접속 오류를 수정하세요. Python 3.10.16-slim, 작업 경로 /app, 제공 requirements.txt, app.py 복사, 컨테이너 시작 시 python app.py 실행 조건을 지킵니다.\n이미지 mk-web:1을 tasks/q02 빌드 컨텍스트로 만들고 mk-web 컨테이너를 백그라운드 실행하세요. 호스트 5080을 컨테이너 5000에 연결합니다. EXPOSE만으로 외부 포트가 연결된다고 가정하지 마세요.\n예상 결과: http://localhost:5080/ 응답 본문은 Parcel Hub Ready와 줄바꿈입니다.",
+    "rubric": "Dockerfile 6 / 바인딩 수정 2 / 빌드·포트·이름 명령 2"
+  },
+  {
+    "n": 3,
+    "title": "바인드 마운트로 오류 로그 추출",
+    "points": 8,
+    "min": 8,
+    "file": "answers/q03.txt",
+    "body": "data/system.log가 제공됩니다. 임시 alpine:3.21.3 컨테이너에 응시용/data를 /data로 읽기·쓰기 연결하세요. 대문자 ERROR가 포함된 줄만 골라 사전순 정렬하고 중복을 제거해 /data/errors.txt에 저장하세요. 컨테이너 종료 시 자동 삭제합니다.\n내용은 ERROR sensor-A, ERROR sensor-B의 두 줄이어야 하며 원본은 바뀌면 안 됩니다. Docker 명령으로 결과도 읽어 확인하세요.\n경계 확인: 같은 작업을 다시 실행해도 결과가 누적되면 안 됩니다. data/empty.log를 입력으로 바꿔 data/empty-errors.txt를 만들면 크기가 0이어야 합니다.",
+    "rubric": "마운트 3 / 필터·정렬·중복제거·덮어쓰기 3 / 재실행·빈 입력 확인 2"
+  },
+  {
+    "n": 4,
+    "title": "Compose 웹 서비스 연결",
+    "points": 6,
+    "min": 8,
+    "file": "tasks/q04/compose.yml, answers/q04.txt",
+    "body": "제공 Compose의 web 서비스에 호스트 8088 -> 컨테이너 80 포트 매핑과 index.html 읽기 전용 바인드 마운트를 추가하세요. 기존 이미지와 probe 서비스를 유지합니다.\n응시용 루트에서 해당 Compose 파일을 지정하여 실행·상태 확인·probe에서 web으로 HTTP 요청·종료하는 명령을 쓰세요. probe의 wget -qO-를 사용할 수 있습니다.\n예상 결과: Parcel Dispatch Board가 포함된 HTML. 이 Compose는 Kafka Compose와 별도 프로젝트입니다.",
+    "rubric": "포트·마운트 3 / 실행·조회·서비스명 통신·종료 3"
+  },
+  {
+    "n": 5,
+    "title": "토픽 생성·조회·보존 설정·삭제",
+    "points": 10,
+    "min": 10,
+    "file": "answers/q05.txt",
+    "body": "공통 Kafka가 준비된 상태입니다. parcel-events 토픽을 파티션 3개, 복제계수 1로 생성하고 상세 정보를 조회하세요. 보존 기간을 30분으로 변경한 뒤 설정을 조회하세요.\n삭제 연습은 별도의 mk-temp 토픽(파티션 1, 복제계수 1)을 생성하여 수행합니다. mk-temp만 삭제하고 목록에서 사라졌는지 확인하세요. 삭제가 비동기이므로 남아 있으면 잠시 뒤 다시 조회합니다.\n예상 핵심 필드: parcel-events의 PartitionCount=3, ReplicationFactor=1, retention.ms=1800000. broker/node ID는 제공 설정에서 1입니다.",
+    "rubric": "생성·상세조회 4 / 보존값 변경·조회 4 / 별도 토픽 삭제 확인 2"
+  },
+  {
+    "n": 6,
+    "title": "콘솔 메시지 송수신",
+    "points": 8,
+    "min": 8,
+    "file": "answers/q06.txt",
+    "body": "mk-cli 토픽을 파티션 1개, 복제계수 1로 새로 만드세요. 콘솔 프로듀서를 실행하고 data/cli_messages.txt의 세 줄을 각각 입력합니다. Ctrl+C는 입력 종료 조작이며 명령이 아닙니다.\n기존 오프셋이 없는 직접 파티션 소비 방식으로 파티션 0의 처음부터 정확히 세 건을 읽고 종료하는 콘솔 컨슈머 명령을 작성하세요. --partition, --from-beginning, --max-messages를 사용합니다.\n예상 본문은 파일과 같은 순서입니다. 재시도 시 전송을 반복하면 데이터가 추가됩니다. 소비 명령만 다시 실행해 첫 세 건을 확인하세요.",
+    "rubric": "토픽 생성 2 / 프로듀서·데이터 2 / 처음부터·파티션·건수 제한 4"
+  },
+  {
+    "n": 7,
+    "title": "단일 브로커 명령 디버깅",
+    "points": 7,
+    "min": 7,
+    "file": "answers/q07.txt",
+    "body": "answers/q07.txt에 세 개의 잘못된 명령이 있습니다. A는 mk-debug 토픽을 파티션 3, 복제계수 1로 생성하려는 명령입니다. B는 해당 토픽에 batch.size=512를 적용해 콘솔 프로듀서를 시작하려는 명령입니다. C는 parcel-events의 보존 기간을 30분으로 설정하려는 명령입니다.\n각 명령을 고치고 원인을 한 문장씩 적으세요. 파티션 수가 3이라는 이유만으로 복제계수도 3이 되는지, batch.size가 메시지 개수인지도 답하세요. B는 시작 여부를 확인한 뒤 Ctrl+C로 종료하면 됩니다.",
+    "rubric": "A와 복제·파티션 구분 3 / B 및 바이트 단위 2 / C 밀리초 2"
+  },
+  {
+    "n": 8,
+    "title": "Admin API로 안전한 토픽 준비",
+    "points": 8,
+    "min": 9,
+    "file": "tasks/q08_admin.py",
+    "body": "prepare_topics(admin)을 완성하세요. TOPICS에 정의된 mk-orders(3), mk-input(1), mk-output(1)을 사용합니다.\n현재 목록을 조회하고 없는 토픽만 NewTopic으로 생성하세요. 복제계수는 모두 1이며 create_topics에는 리스트를 전달합니다. 이미 있는 토픽은 삭제·재설정하지 않습니다. 생성할 토픽이 없으면 create_topics를 호출하지 않습니다.\n반환값은 이번에 생성한 이름을 오름차순 정렬한 리스트입니다. 생성 오류는 전파합니다. existing의 설정 변경과 동시 생성 경쟁은 구현 범위에서 제외합니다. 처음 빈 환경 결과는 [\"mk-input\", \"mk-orders\", \"mk-output\"], 바로 재실행한 결과는 []입니다.",
+    "rubric": "현재 목록·차집합 3 / NewTopic·생성 3 / 반환·재실행 2"
+  },
+  {
+    "n": 9,
+    "title": "키를 가진 Python 프로듀서",
+    "points": 10,
+    "min": 12,
+    "file": "tasks/q09_producer.py",
+    "body": "make_producer(factory, bootstrap)는 전달받은 주소를 사용하고 문자열 키·값을 UTF-8 바이트로 직렬화하는 프로듀서를 반환합니다. factory는 KafkaProducer 생성자를 뜻합니다.\nsend_records(producer, records)는 입력 순서대로 mk-orders에 store를 키, text를 값으로 전송합니다. 입력 자료는 두 필드가 문자열임을 보장합니다. 빈 문자열도 유효한 값이므로 전송해야 합니다. 각 send의 반환 Future에서 get(timeout=10)을 호출해 실패를 확인하고 모든 전송 후 flush하세요. 빈 목록에서도 flush합니다. 정상 반환은 전송 건수입니다. 실패는 전파합니다.\n제공 데이터의 예상 전송 건수는 6입니다. 같은 키의 파티션 번호는 고정된 토픽 구성·동일 파티셔너 조건에서 같아야 하며 특정 번호나 전체 균등 분산은 요구하지 않습니다.",
+    "rubric": "주소·키/값 직렬화 3 / 키·값·토픽·빈 값 4 / 결과 확인·flush·건수 3"
+  },
+  {
+    "n": 10,
+    "title": "컨슈머 설정과 디코딩",
+    "points": 7,
+    "min": 8,
+    "file": "tasks/q10_consumer.py",
+    "body": "make_consumer(factory, topic, bootstrap, group)를 완성하세요. 토픽은 첫 위치 인자, 주소와 그룹은 전달받은 값, auto_offset_reset은 earliest, 자동 커밋은 True, consumer_timeout_ms는 10000입니다. 역직렬화 옵션은 지정하지 않습니다.\ncollect(consumer)는 순회하며 key와 value를 UTF-8로 해독하고 key/value/partition/offset 네 필드의 딕셔너리를 리스트로 반환합니다. null 키는 None, 빈 bytes 값은 빈 문자열로 유지합니다. 빈 입력은 []이며 잘못된 UTF-8은 오류를 전파합니다.\nQ09 전송 뒤 새 그룹으로 실행하면 여섯 행이 나옵니다. 파티션 간 전체 출력 순서는 고정하지 않습니다. 기존 그룹의 earliest가 기존 커밋 위치를 무조건 초기화하지는 않습니다.",
+    "rubric": "생성자 설정 3 / 디코딩·null·메타데이터 3 / 빈 입력 1"
+  },
+  {
+    "n": 11,
+    "title": "입력 토픽을 정제해 출력 토픽으로 전달",
+    "points": 10,
+    "min": 13,
+    "file": "tasks/q11_pipeline.py",
+    "body": "transform(raw)는 UTF-8 bytes를 해독하고 양끝 공백을 제거한 뒤 대문자로 바꿉니다. 제거 후 빈 문자열이면 None을 반환합니다. 잘못된 UTF-8은 UnicodeDecodeError를 전파하세요.\nrelay(consumer, producer)는 모든 message.value를 transform에 전달하고 None이 아닌 결과만 mk-output으로 전송합니다. 키는 사용하지 않습니다. 매 전송 Future.get(timeout=10)을 호출하고 끝에 flush한 뒤 실제 전송 수를 반환하세요. 빈 입력도 flush합니다. 오류는 삼키지 않습니다.\nmk-input에 data/pipeline_messages.txt의 4줄을 넣고 새 그룹으로 변환하면 forwarded=3입니다. mk-output의 처음 세 본문은 COFFEE, TEA, 한글입니다. 자동 커밋을 쓰는 입문 실습이며 장애 시 정확히 한 번 처리는 보장하지 않습니다.",
+    "rubric": "해독·공백·대문자 3 / 빈 값·오류 2 / 출력 토픽·건수·전송 확인·flush 5"
+  },
+  {
+    "n": 12,
+    "title": "출력과 장애 조건 해석",
+    "points": 10,
+    "min": 10,
+    "file": "answers/q12.md",
+    "body": "다음 네 상황에 이유와 함께 답하세요.\n(1) 한 토픽의 파티션이 3개이고 같은 그룹의 컨슈머가 4개입니다. 안정된 할당 상태에서 이 토픽을 동시에 담당할 수 있는 컨슈머의 최대 수와 유휴 컨슈머의 최소 수는? (3점)\n(2) 새 토픽의 시작 오프셋은 0이고 삭제·압축·트랜잭션이 없습니다. kafka-get-offsets의 최신 오프셋이 mk-orders:1:5라면 파티션 1의 레코드는 몇 개인가요? 로그 시작 오프셋이 3으로 바뀌어도 항상 5개라고 할 수 있나요? (2점)\n(3) RF=1인 이 환경에서 acks=all이면 브로커 디스크 장애에도 복사본으로 복구 가능한가요? KRaft를 쓴다는 사실이 복제본 수를 늘리나요? (3점)\n(4) Java 콘솔 프로듀서의 키 없는 메시지 5개가 모두 한 파티션에 들어갔습니다. 즉시 오류라고 판정할 수 있나요? 이 분배 결과를 kafka-python 2.0.4의 키 없는 전송에 똑같이 적용해도 되나요? (2점)",
+    "rubric": "그룹 3 / 오프셋 조건 2 / RF·KRaft 3 / 클라이언트별 분배 2"
+  }
+]

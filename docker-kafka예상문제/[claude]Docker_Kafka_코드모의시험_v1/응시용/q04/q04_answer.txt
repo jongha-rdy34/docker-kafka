@@ -1,0 +1,19 @@
+# Q04 볼륨 마운트 로그 감시 컨테이너 (8점) — 명령 부분
+# 모든 명령은 q04 폴더 안에서 실행합니다. (order.log는 이미 제공됨)
+
+# [1] order-watcher 이미지 빌드
+docker build ______
+
+# [2] 컨테이너 이름 order-watcher-c 로 실행 (터미널 A, 포그라운드)
+#     호스트의 q04/order.log 파일을 컨테이너의 /logs/order.log 로 연결
+docker run ______
+
+# [3] 다른 터미널 B(q04 폴더)에서 로그 2줄을 기존 내용 뒤에 추가
+echo "[OK] order-101 delivered" ______ order.log
+echo "[FAIL] order-102 address not found" ______ order.log
+
+# [4] 터미널 A에서 Ctrl+C로 종료한 뒤 컨테이너 삭제
+______
+
+# [5] [3]에서 >> 대신 > 를 사용하면 감시 결과가 어떻게 되는지 이유와 함께 쓰세요.
+답: ______

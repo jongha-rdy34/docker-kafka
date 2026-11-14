@@ -1,0 +1,26 @@
+# Q05 Docker Compose 멀티 컨테이너 (10점) — 명령 부분
+# 모든 명령은 q05 폴더 안에서 실행합니다.
+
+# [1] 두 서비스를 백그라운드로 실행
+______
+
+# [2] Compose 서비스 상태 확인
+______
+
+# [3] api 컨테이너에서 web 서비스로 ping 3회
+docker compose exec api ______
+
+# [4] api 컨테이너(alpine)에 curl 설치
+docker compose exec api ______
+
+# [5] api 컨테이너에서 web 서비스로 HTTP 요청
+docker compose exec api ______
+
+# [6] 호스트에서 웹 페이지 확인
+curl http://localhost:______
+
+# [7] 컨테이너와 네트워크 정리
+______
+
+# [8] [5] 대신 docker compose exec api curl http://localhost:8081 을 실행하면 어떻게 되는지 이유와 함께 쓰세요.
+답: ______

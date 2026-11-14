@@ -1,0 +1,19 @@
+{
+  "응시용_syntax_count": 10,
+  "정답_syntax_count": 10,
+  "응시용_zip_files": 34,
+  "student_answer_separation": "pass",
+  "정답_zip_files": 34,
+  "응시용.zip": {
+    "bytes": 157680,
+    "sha256": "afaa0b0cffd4ac74180c81f7a254652808f076446cd21abe144216be66f964d9"
+  },
+  "전체결과물.zip": {
+    "bytes": 329079,
+    "sha256": "d614b18a152963b4c5e52f45f92e1c4d9a6869967da4b1c656d57fd359744c80"
+  },
+  "정답.zip": {
+    "bytes": 161580,
+    "sha256": "5313bdf85cff16ca23fb58e91e3734cdb62d366c646778fd0891b9a845ed8d34"
+  }
+}

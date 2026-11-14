@@ -1,0 +1,41 @@
+# Q07 콘솔 프로듀서·컨슈머와 파티션 분포 (10점)
+# 모든 명령은 kafka-docker 폴더에서 실행합니다. 프로듀서·컨슈머 종료(Ctrl+C)는 명령으로 쓰지 않습니다.
+
+# [1] order-events 토픽 생성: 파티션 3개, 복제 계수 1
+docker compose exec kafka kafka-topics --create --topic order-events --bootstrap-server localhost:9092 --partitions 3 --replication-factor 1
+
+# [2] 기본 설정 콘솔 프로듀서 실행 → small_messages.txt의 5줄을 한 줄씩 입력 → Ctrl+C
+docker compose exec kafka kafka-console-producer --topic order-events --bootstrap-server localhost:9092
+
+# [3] order-events의 모든 메시지를 처음부터 조회
+docker compose exec kafka kafka-console-consumer --topic order-events --from-beginning --bootstrap-server localhost:9092
+
+# [4] 파티션 0, 1, 2를 각각 처음부터 조회 (명령 3줄)
+docker compose exec kafka kafka-console-consumer --topic order-events --bootstrap-server localhost:9092 --from-beginning --partition 0
+docker compose exec kafka kafka-console-consumer --topic order-events --bootstrap-server localhost:9092 --from-beginning --partition 1
+docker compose exec kafka kafka-console-consumer --topic order-events --bootstrap-server localhost:9092 --from-beginning --partition 2
+
+# [5] 파티션별 최신 오프셋 조회
+docker compose exec kafka kafka-get-offsets --bootstrap-server localhost:9092 --topic order-events
+
+# [6] 배치 크기를 512바이트로 줄인 프로듀서 실행 → large_messages.txt의 20줄을 붙여넣기 → Ctrl+C
+docker compose exec kafka kafka-console-producer --topic order-events --bootstrap-server localhost:9092 --producer-property batch.size=512
+
+# [7] 결과 해석 (아래 출력은 예시입니다. 실제 실행 결과와 숫자가 다를 수 있습니다.)
+# [2] 직후 [5]의 출력
+#   order-events:0:0
+#   order-events:1:5
+#   order-events:2:0
+# [6] 직후 [5]의 출력
+#   order-events:0:7
+#   order-events:1:12
+#   order-events:2:6
+
+(a) 위 예시에서 [2]의 5개 메시지는 각 파티션에 몇 개씩 저장되었나요?
+답: 파티션 0: 0개, 파티션 1: 5개, 파티션 2: 0개
+
+(b) 위 예시에서 [6]의 20개 메시지는 각 파티션에 몇 개씩 저장되었나요? (오프셋은 누적값입니다)
+답: 파티션 0: 7-0=7개, 파티션 1: 12-5=7개, 파티션 2: 6-0=6개 (합계 20개)
+
+(c) [2]에서 메시지가 한 파티션에 몰린 이유와 [6]에서 분산된 이유를 쓰세요.
+답: 키가 없는 메시지는 Sticky 파티셔너가 배치가 찰 때까지 한 파티션에 몰아 보낸다. 작은 메시지 5개는 기본 batch.size(16384바이트)를 채우지 못해 한 파티션에 들어갔고, batch.size=512로 줄이면 긴 메시지 1~2개만으로 배치가 차서 파티션이 자주 바뀌므로 여러 파티션에 분산된다.

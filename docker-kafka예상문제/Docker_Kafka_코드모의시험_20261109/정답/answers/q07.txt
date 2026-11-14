@@ -1,0 +1,6 @@
+docker compose exec kafka kafka-topics --bootstrap-server localhost:9092 --create --topic mk-debug --partitions 3 --replication-factor 1
+# A: 브로커 1대이므로 RF=3은 불가. 파티션 수와 복제계수는 별개이다.
+docker compose exec kafka kafka-console-producer --bootstrap-server localhost:9092 --topic mk-debug --producer-property batch.size=512
+# B: 속성 이름은 batch.size이며 512의 단위는 bytes이다. 512개 메시지가 아니다. 실행 확인 뒤 Ctrl+C.
+docker compose exec kafka kafka-configs --bootstrap-server localhost:9092 --alter --topic parcel-events --add-config retention.ms=1800000
+# C: 30 * 60 * 1000 = 1800000 ms. 1800 ms는 1.8초이다.

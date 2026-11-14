@@ -1,0 +1,22 @@
+WORK = C:\Users\82109\AppData\Local\Temp\dkv_sb6c5fdv
+PASS KAFKA compose up -d
+PASS KAFKA 서비스 kafka running + --list 응답
+PASS Q08 producer 1회차
+PASS Q08 producer 2회차(기존 토픽 삭제 경로)
+PASS Q08 프로듀서 측: 키별 파티션 1개
+PASS Q08 세 키가 서로 다른 파티션(seoul 0, daejeon 1, ulsan 2)
+    키→파티션: {'seoul': ['0'], 'daejeon': ['1'], 'ulsan': ['2']}
+PASS Q08 consumer 9건 + 3키 OK
+PASS Q08 같은 group 재실행 시 0건(커밋 위치부터)
+PASS Q08 응시용 delete_topics(topic_name) 은 2회차에 오류
+    버그 오류: kafka.errors.UnknownTopicOrPartitionError: [Error 3] UnknownTopicOrPartitionError: Request 'DeleteTopicsRequest_v3(topics=['r', 'e', 'g', 'i', 'o', 'n', '-', 'o', 'r', 'd', 'e', 'r', 's'], timeout=30000)' failed with response 'DeleteTopicsResponse_v3(throttle_time_ms=0, topic_error_codes=[(topic='g', error_code=3), (topic='s', error_code=3), (topic='r', error_code=42), (topic='o', error_code=42), (topic='d', error_code=3), (topic='n', error_code=3), (topic='i', error_code=3), (topic='e', error_code=42), (topic='-', error_code=3)])'.
+PASS Q09 응시용 이중 인코딩은 TypeError
+    버그 오류: TypeError: descriptor 'encode' for 'str' objects doesn't apply to a 'bytes' object
+PASS Q09-1 입력 준비(토픽 삭제 후 재생성)
+PASS Q09-2 forwarded=4, Skipped 1
+PASS Q09-3 결과 [COFFEE, TEA, LATTE, SANDWICH]
+     ["results: ['COFFEE', 'TEA', 'LATTE', 'SANDWICH'] count: 4"]
+PASS Q09 전체 재실행(같은 그룹)도 forwarded=4 / count: 4
+PASS SELF_CHECK q08 q09
+
+==== 15/15 PASS ====

@@ -1,0 +1,9 @@
+# A: 복제계수 오류
+docker compose exec kafka kafka-topics --bootstrap-server localhost:9092 --create --topic mk-debug --partitions 3 --replication-factor 3
+# 원인: TODO
+# B: 속성명 오류
+docker compose exec kafka kafka-console-producer --bootstrap-server localhost:9092 --topic mk-debug --producer-property batch confi.size=512
+# 원인: TODO
+# C: 시간 단위 오류
+docker compose exec kafka kafka-configs --bootstrap-server localhost:9092 --alter --topic parcel-events --add-config retention.ms=1800
+# 원인: TODO

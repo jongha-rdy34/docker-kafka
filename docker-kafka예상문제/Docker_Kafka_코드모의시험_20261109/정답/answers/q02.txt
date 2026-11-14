@@ -1,0 +1,5 @@
+docker build -t mk-web:1 tasks/q02
+docker run -d --name mk-web -p 5080:5000 mk-web:1
+docker run --rm --network container:mk-web -v "${PWD}:/exam:ro" -w /exam dk-mock-python:1 python support/check_http.py http://localhost:5000/
+# 호스트 포트는 브라우저의 http://localhost:5080/에서도 확인합니다.
+docker port mk-web

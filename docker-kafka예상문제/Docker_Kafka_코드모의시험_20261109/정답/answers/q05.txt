@@ -1,0 +1,7 @@
+docker compose exec kafka kafka-topics --bootstrap-server localhost:9092 --create --topic parcel-events --partitions 3 --replication-factor 1
+docker compose exec kafka kafka-topics --bootstrap-server localhost:9092 --describe --topic parcel-events
+docker compose exec kafka kafka-configs --bootstrap-server localhost:9092 --alter --topic parcel-events --add-config retention.ms=1800000
+docker compose exec kafka kafka-configs --bootstrap-server localhost:9092 --describe --topic parcel-events
+docker compose exec kafka kafka-topics --bootstrap-server localhost:9092 --create --topic mk-temp --partitions 1 --replication-factor 1
+docker compose exec kafka kafka-topics --bootstrap-server localhost:9092 --delete --topic mk-temp
+docker compose exec kafka kafka-topics --bootstrap-server localhost:9092 --list

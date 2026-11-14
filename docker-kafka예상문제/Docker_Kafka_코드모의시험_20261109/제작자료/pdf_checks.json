@@ -1,0 +1,12 @@
+{
+  "exam": {
+    "pages": 7,
+    "rendered": 7,
+    "all_questions_present": true
+  },
+  "solution": {
+    "pages": 13,
+    "rendered": 13,
+    "all_questions_present": true
+  }
+}

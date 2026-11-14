@@ -1,0 +1,11 @@
+name: dk-web
+services:
+  web:
+    image: nginx:1.27.4-alpine
+    ports:
+      - "8088:80"
+    volumes:
+      - ./index.html:/usr/share/nginx/html/index.html:ro
+  probe:
+    image: alpine:3.21.3
+    command: ["sleep", "infinity"]

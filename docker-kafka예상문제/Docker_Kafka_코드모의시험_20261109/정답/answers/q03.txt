@@ -1,0 +1,6 @@
+docker run --rm -v "${PWD}/data:/data" alpine:3.21.3 sh -c 'grep "ERROR" /data/system.log | sort | uniq > /data/errors.txt'
+docker run --rm -v "${PWD}/data:/data:ro" alpine:3.21.3 cat /data/errors.txt
+docker run --rm -v "${PWD}/data:/data" alpine:3.21.3 sh -c 'grep "ERROR" /data/system.log | sort | uniq > /data/errors.txt'
+docker run --rm -v "${PWD}/data:/data:ro" alpine:3.21.3 cat /data/errors.txt
+docker run --rm -v "${PWD}/data:/data" alpine:3.21.3 sh -c 'grep "ERROR" /data/empty.log | sort | uniq > /data/empty-errors.txt'
+docker run --rm -v "${PWD}/data:/data:ro" alpine:3.21.3 wc -c /data/empty-errors.txt

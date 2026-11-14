@@ -1,0 +1,19 @@
+# Q04 볼륨 마운트 로그 감시 컨테이너 (8점) — 명령 부분
+# 모든 명령은 q04 폴더 안에서 실행합니다. (order.log는 이미 제공됨)
+
+# [1] order-watcher 이미지 빌드
+docker build -t order-watcher .
+
+# [2] 컨테이너 이름 order-watcher-c 로 실행 (터미널 A, 포그라운드)
+#     호스트의 q04/order.log 파일을 컨테이너의 /logs/order.log 로 연결
+docker run --name order-watcher-c -v $(pwd)/order.log:/logs/order.log order-watcher
+
+# [3] 다른 터미널 B(q04 폴더)에서 로그 2줄을 기존 내용 뒤에 추가
+echo "[OK] order-101 delivered" >> order.log
+echo "[FAIL] order-102 address not found" >> order.log
+
+# [4] 터미널 A에서 Ctrl+C로 종료한 뒤 컨테이너 삭제
+docker rm order-watcher-c
+
+# [5] [3]에서 >> 대신 > 를 사용하면 감시 결과가 어떻게 되는지 이유와 함께 쓰세요.
+답: > 는 파일을 비우고 새로 쓰므로 기존 내용(첫 줄)이 사라진다. 감시 스크립트는 처음 파일 끝 위치(기존 크기)부터 읽고 있으므로, 파일이 비워진 뒤에는 읽기 위치가 어긋나 새 줄이 출력되지 않거나 일부 글자만 출력될 수 있다. 로그를 누적하려면 >> 를 써야 한다.

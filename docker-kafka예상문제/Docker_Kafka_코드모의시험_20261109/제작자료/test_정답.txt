@@ -1,0 +1,31 @@
+test_admin_all_exist (__main__.ExamTests.test_admin_all_exist) ... ok
+test_admin_empty (__main__.ExamTests.test_admin_empty) ... ok
+test_admin_error (__main__.ExamTests.test_admin_error) ... ok
+test_admin_partial (__main__.ExamTests.test_admin_partial) ... ok
+test_admin_repeat (__main__.ExamTests.test_admin_repeat) ... ok
+test_consume_bad_key (__main__.ExamTests.test_consume_bad_key) ... ok
+test_consume_bad_value (__main__.ExamTests.test_consume_bad_value) ... ok
+test_consume_empty (__main__.ExamTests.test_consume_empty) ... ok
+test_consume_null_key_empty_value (__main__.ExamTests.test_consume_null_key_empty_value) ... ok
+test_consume_unicode (__main__.ExamTests.test_consume_unicode) ... ok
+test_consumer_options (__main__.ExamTests.test_consumer_options) ... ok
+test_producer_options (__main__.ExamTests.test_producer_options) ... ok
+test_relay_all_blank (__main__.ExamTests.test_relay_all_blank) ... ok
+test_relay_decode_error (__main__.ExamTests.test_relay_decode_error) ... ok
+test_relay_empty (__main__.ExamTests.test_relay_empty) ... ok
+test_relay_normal_and_skip (__main__.ExamTests.test_relay_normal_and_skip) ... ok
+test_relay_send_error (__main__.ExamTests.test_relay_send_error) ... ok
+test_send_empty_list (__main__.ExamTests.test_send_empty_list) ... ok
+test_send_empty_value (__main__.ExamTests.test_send_empty_value) ... ok
+test_send_error (__main__.ExamTests.test_send_error) ... ok
+test_send_normal (__main__.ExamTests.test_send_normal) ... ok
+test_transform_bad_utf8 (__main__.ExamTests.test_transform_bad_utf8) ... ok
+test_transform_empty (__main__.ExamTests.test_transform_empty) ... ok
+test_transform_normal (__main__.ExamTests.test_transform_normal) ... ok
+test_transform_spaces (__main__.ExamTests.test_transform_spaces) ... ok
+test_transform_unicode (__main__.ExamTests.test_transform_unicode) ... ok
+
+----------------------------------------------------------------------
+Ran 26 tests in 0.005s
+
+OK

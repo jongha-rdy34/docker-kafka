@@ -1,0 +1,100 @@
+WORK = C:\Users\82109\AppData\Local\Temp\dkv_8wbjyc8u
+PASS Q01 정답 스크립트 2회 실행 성공
+PASS Q01 error.log 4줄
+PASS Q01 error_unique.log 2줄(정렬·중복제거)
+PASS Q01 disk.log 4줄(-i)
+PASS Q01 head.txt 3줄
+PASS Q01 backup 복사
+PASS Q01 level README
+PASS Q01 summary 3줄(재실행 후에도)
+PASS Q01 perm.txt
+PASS Q01 deploy 실행
+PASS SELF_CHECK q01
+    stdout 마지막: ['date: 20261107', 'error_unique: 2', 'disk: 4']
+PASS Q01 응시용 'DATE = ...' 는 오류로 중단
+    버그 오류 메시지: run.sh: line 9: DATE: not found
+PASS Q02 hello-world 실행
+PASS Q02 ps -a 에 Exited 표시
+PASS Q02 rm
+PASS Q02 images
+PASS Q02 devbox pwd=/ , 42, 재시작 후 note 유지
+PASS Q02 rm 후 새 run 에는 note.txt 없음
+PASS Q03 정답 빌드
+PASS Q03 GET /
+PASS Q03 GET /status
+PASS SELF_CHECK q03
+PASS Q03 응시용 app.run(port=5000): 컨테이너 Up, 호스트 응답 없음
+    버그 버전 로그: [' * Running on http://127.0.0.1:5000']
+PASS Q04 정답 빌드
+PASS Q04 [LOG]/[ALERT] 출력
+    logs: ['Watching order log...', '[LOG] [OK] order-101 delivered', '[ALERT] [FAIL] order-102 address not found']
+    '>' 덮어쓰기 후 새 출력: []
+PASS Q04 응시용 CMD ["python watch_log.py"]: 빌드 성공·실행 실패
+    버그 실행 오류: ailed: runc create failed: unable to start container process: error during container init: exec: "python watch_log.py": executable file not found in $PATH
+
+Run 'docker run --help' for more information
+PASS Q05 compose up -d
+PASS Q05 compose ps 두 컨테이너 running
+PASS Q05 ping -c 3 web
+PASS Q05 api→web curl
+PASS Q05 호스트 8081
+PASS Q05 api 안에서 localhost:8081 은 실패
+    localhost:8081 rc: 7
+PASS SELF_CHECK q05
+PASS KAFKA compose up -d
+PASS KAFKA 서비스 kafka running + --list 응답
+PASS Q06 create delivery-status
+PASS Q06 list
+PASS Q06 describe PartitionCount: 3 / RF 1 / Leader 1
+    describe:
+      Topic: delivery-status	TopicId: TnqHDVomQJWfykDEqfbZhw	PartitionCount: 3	ReplicationFactor: 1	Configs: 
+      	Topic: delivery-status	Partition: 0	Leader: 1	Replicas: 1	Isr: 1
+      	Topic: delivery-status	Partition: 1	Leader: 1	Replicas: 1	Isr: 1
+      	Topic: delivery-status	Partition: 2	Leader: 1	Replicas: 1	Isr: 1
+PASS Q06 alter retention
+    alter: Completed updating config for topic delivery-status.
+PASS Q06 describe configs retention.ms=1800000
+    configs: Dynamic configs for topic delivery-status are:
+  retention.ms=1800000 sensitive=false synonyms={DYNAMIC_TOPIC_CONFIG:retention.ms=1800000}
+PASS Q06 delivery-temp 삭제
+PASS Q06 (A) ./bin/kafka-topics.sh 실패
+PASS Q06 (A) --patitions 실패
+PASS Q06 (C) RF 3 실패
+PASS Q06 (D) kafka-topics --add-config 실패
+    (A) .sh  : OCI runtime exec failed: exec failed: unable to start container process: exec: "./bin/kafka-topics.sh": stat ./bin/kafka-topics.sh: no such file or directory
+    (A) typo : Exception in thread "main" joptsimple.UnrecognizedOptionException: patitions is not a recognized option
+    (B) rc 0 : Topic: delivery-status	TopicId: TnqHDVomQJWfykDEqfbZhw	PartitionCount: 3	ReplicationFactor: 1	Configs: retention.ms=1800000 | lines: 4
+    (C)      : ['Error while executing topic command : Unable to replicate the partition 3 time(s): The target replication factor of 3 cannot be reached because only 1 broker(s) are registered.']
+    (D)      : Exception in thread "main" joptsimple.UnrecognizedOptionException: add-config is not a recognized option
+PASS Q06 (A) 수정 명령 성공
+PASS Q06 (B) 수정 명령 성공
+PASS Q06 (C) 수정 명령 성공
+PASS Q06 (D) 수정 명령 성공
+PASS Q06 (D) 후 retention.ms=600000
+PASS Q07 small 5개 저장
+    small 후 offsets: {0: 0, 1: 0, 2: 5} → 한 파티션 집중
+PASS Q07 --from-beginning 5개
+PASS Q07 --partition 별 조회 합계 = offsets
+PASS Q07 large 20개 저장
+PASS Q07 batch.size=512 에서 2개 이상 파티션 분산
+    large 분포: {0: 6, 1: 14, 2: 0} 누적: {0: 6, 1: 14, 2: 5}
+    (참고) 기본 batch.size 로 20개: {0: 0, 1: 20, 2: 0}
+PASS Q08 producer 1회차
+PASS Q08 producer 2회차(기존 토픽 삭제 경로)
+PASS Q08 프로듀서 측: 키별 파티션 1개
+PASS Q08 세 키가 서로 다른 파티션(seoul 0, daejeon 1, ulsan 2)
+    키→파티션: {'seoul': ['0'], 'daejeon': ['1'], 'ulsan': ['2']}
+PASS Q08 consumer 9건 + 3키 OK
+PASS Q08 같은 group 재실행 시 0건(커밋 위치부터)
+PASS Q08 응시용 delete_topics(topic_name) 은 2회차에 오류
+    버그 오류: kafka.errors.UnknownTopicOrPartitionError: [Error 3] UnknownTopicOrPartitionError: Request 'DeleteTopicsRequest_v3(topics=['r', 'e', 'g', 'i', 'o', 'n', '-', 'o', 'r', 'd', 'e', 'r', 's'], timeout=30000)' failed with response 'DeleteTopicsResponse_v3(throttle_time_ms=0, topic_error_codes=[(topic='-', error_code=3), (topic='r', error_code=42), (topic='d', error_code=3), (topic='n', error_code=3), (topic='g', error_code=3), (topic='s', error_code=3), (topic='e', error_code=42), (topic='i', error_code=3), (topic='o', error_code=42)])'.
+PASS Q09 응시용 이중 인코딩은 TypeError
+    버그 오류: TypeError: descriptor 'encode' for 'str' objects doesn't apply to a 'bytes' object
+PASS Q09-1 입력 준비(토픽 삭제 후 재생성)
+PASS Q09-2 forwarded=4, Skipped 1
+PASS Q09-3 결과 [COFFEE, TEA, LATTE, SANDWICH]
+     ["results: ['COFFEE', 'TEA', 'LATTE', 'SANDWICH'] count: 4"]
+PASS Q09 전체 재실행(같은 그룹)도 forwarded=4 / count: 4
+PASS SELF_CHECK q06 q07 q08 q09
+
+==== 68/68 PASS ====

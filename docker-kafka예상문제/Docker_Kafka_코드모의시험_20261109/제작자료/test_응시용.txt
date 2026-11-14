@@ -1,0 +1,284 @@
+test_admin_all_exist (__main__.ExamTests.test_admin_all_exist) ... ERROR
+test_admin_empty (__main__.ExamTests.test_admin_empty) ... ERROR
+test_admin_error (__main__.ExamTests.test_admin_error) ... ok
+test_admin_partial (__main__.ExamTests.test_admin_partial) ... ERROR
+test_admin_repeat (__main__.ExamTests.test_admin_repeat) ... ERROR
+test_consume_bad_key (__main__.ExamTests.test_consume_bad_key) ... ERROR
+test_consume_bad_value (__main__.ExamTests.test_consume_bad_value) ... ERROR
+test_consume_empty (__main__.ExamTests.test_consume_empty) ... ERROR
+test_consume_null_key_empty_value (__main__.ExamTests.test_consume_null_key_empty_value) ... ERROR
+test_consume_unicode (__main__.ExamTests.test_consume_unicode) ... ERROR
+test_consumer_options (__main__.ExamTests.test_consumer_options) ... ERROR
+test_producer_options (__main__.ExamTests.test_producer_options) ... ERROR
+test_relay_all_blank (__main__.ExamTests.test_relay_all_blank) ... ERROR
+test_relay_decode_error (__main__.ExamTests.test_relay_decode_error) ... ERROR
+test_relay_empty (__main__.ExamTests.test_relay_empty) ... ERROR
+test_relay_normal_and_skip (__main__.ExamTests.test_relay_normal_and_skip) ... ERROR
+test_relay_send_error (__main__.ExamTests.test_relay_send_error) ... ok
+test_send_empty_list (__main__.ExamTests.test_send_empty_list) ... ERROR
+test_send_empty_value (__main__.ExamTests.test_send_empty_value) ... ERROR
+test_send_error (__main__.ExamTests.test_send_error) ... ok
+test_send_normal (__main__.ExamTests.test_send_normal) ... ERROR
+test_transform_bad_utf8 (__main__.ExamTests.test_transform_bad_utf8) ... ERROR
+test_transform_empty (__main__.ExamTests.test_transform_empty) ... ERROR
+test_transform_normal (__main__.ExamTests.test_transform_normal) ... ERROR
+test_transform_spaces (__main__.ExamTests.test_transform_spaces) ... ERROR
+test_transform_unicode (__main__.ExamTests.test_transform_unicode) ... ERROR
+
+======================================================================
+ERROR: test_admin_all_exist (__main__.ExamTests.test_admin_all_exist)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\82109\OneDrive\Desktop\ssafy\������(�ڵ���)\261109Docker_kafka����\Docker_Kafka_�ڵ���ǽ���_20261109\���ÿ�\tests\test_contracts.py", line 51, in test_admin_all_exist
+    a=Admin(q8.TOPICS); self.assertEqual(q8.prepare_topics(a),[]); self.assertEqual(a.calls,[])
+                                         ^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\82109\OneDrive\Desktop\ssafy\������(�ڵ���)\261109Docker_kafka����\Docker_Kafka_�ڵ���ǽ���_20261109\���ÿ�\tasks\q08_admin.py", line 7, in prepare_topics
+    raise NotImplementedError("Q08")
+NotImplementedError: Q08
+
+======================================================================
+ERROR: test_admin_empty (__main__.ExamTests.test_admin_empty)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\82109\OneDrive\Desktop\ssafy\������(�ڵ���)\261109Docker_kafka����\Docker_Kafka_�ڵ���ǽ���_20261109\���ÿ�\tests\test_contracts.py", line 42, in test_admin_empty
+    a=Admin(); self.assertEqual(q8.prepare_topics(a),["mk-input","mk-orders","mk-output"])
+                                ^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\82109\OneDrive\Desktop\ssafy\������(�ڵ���)\261109Docker_kafka����\Docker_Kafka_�ڵ���ǽ���_20261109\���ÿ�\tasks\q08_admin.py", line 7, in prepare_topics
+    raise NotImplementedError("Q08")
+NotImplementedError: Q08
+
+======================================================================
+ERROR: test_admin_partial (__main__.ExamTests.test_admin_partial)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\82109\OneDrive\Desktop\ssafy\������(�ڵ���)\261109Docker_kafka����\Docker_Kafka_�ڵ���ǽ���_20261109\���ÿ�\tests\test_contracts.py", line 46, in test_admin_partial
+    a=Admin(["mk-input","unrelated"]); self.assertEqual(q8.prepare_topics(a),["mk-orders","mk-output"])
+                                                        ^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\82109\OneDrive\Desktop\ssafy\������(�ڵ���)\261109Docker_kafka����\Docker_Kafka_�ڵ���ǽ���_20261109\���ÿ�\tasks\q08_admin.py", line 7, in prepare_topics
+    raise NotImplementedError("Q08")
+NotImplementedError: Q08
+
+======================================================================
+ERROR: test_admin_repeat (__main__.ExamTests.test_admin_repeat)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\82109\OneDrive\Desktop\ssafy\������(�ڵ���)\261109Docker_kafka����\Docker_Kafka_�ڵ���ǽ���_20261109\���ÿ�\tests\test_contracts.py", line 49, in test_admin_repeat
+    a=Admin(); q8.prepare_topics(a); self.assertEqual(q8.prepare_topics(a),[]); self.assertEqual(len(a.calls),1)
+               ^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\82109\OneDrive\Desktop\ssafy\������(�ڵ���)\261109Docker_kafka����\Docker_Kafka_�ڵ���ǽ���_20261109\���ÿ�\tasks\q08_admin.py", line 7, in prepare_topics
+    raise NotImplementedError("Q08")
+NotImplementedError: Q08
+
+======================================================================
+ERROR: test_consume_bad_key (__main__.ExamTests.test_consume_bad_key)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\82109\OneDrive\Desktop\ssafy\������(�ڵ���)\261109Docker_kafka����\Docker_Kafka_�ڵ���ǽ���_20261109\���ÿ�\tests\test_contracts.py", line 84, in test_consume_bad_key
+    with self.assertRaises(UnicodeDecodeError): q10.collect([message(b'ok',b'\xff')])
+                                                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\82109\OneDrive\Desktop\ssafy\������(�ڵ���)\261109Docker_kafka����\Docker_Kafka_�ڵ���ǽ���_20261109\���ÿ�\tasks\q10_consumer.py", line 8, in collect
+    raise NotImplementedError("Q10 decode")
+NotImplementedError: Q10 decode
+
+======================================================================
+ERROR: test_consume_bad_value (__main__.ExamTests.test_consume_bad_value)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\82109\OneDrive\Desktop\ssafy\������(�ڵ���)\261109Docker_kafka����\Docker_Kafka_�ڵ���ǽ���_20261109\���ÿ�\tests\test_contracts.py", line 82, in test_consume_bad_value
+    with self.assertRaises(UnicodeDecodeError): q10.collect([message(b'\xff')])
+                                                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\82109\OneDrive\Desktop\ssafy\������(�ڵ���)\261109Docker_kafka����\Docker_Kafka_�ڵ���ǽ���_20261109\���ÿ�\tasks\q10_consumer.py", line 8, in collect
+    raise NotImplementedError("Q10 decode")
+NotImplementedError: Q10 decode
+
+======================================================================
+ERROR: test_consume_empty (__main__.ExamTests.test_consume_empty)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\82109\OneDrive\Desktop\ssafy\������(�ڵ���)\261109Docker_kafka����\Docker_Kafka_�ڵ���ǽ���_20261109\���ÿ�\tests\test_contracts.py", line 80, in test_consume_empty
+    def test_consume_empty(self): self.assertEqual(q10.collect([]),[])
+                                                   ^^^^^^^^^^^^^^^
+  File "C:\Users\82109\OneDrive\Desktop\ssafy\������(�ڵ���)\261109Docker_kafka����\Docker_Kafka_�ڵ���ǽ���_20261109\���ÿ�\tasks\q10_consumer.py", line 8, in collect
+    raise NotImplementedError("Q10 decode")
+NotImplementedError: Q10 decode
+
+======================================================================
+ERROR: test_consume_null_key_empty_value (__main__.ExamTests.test_consume_null_key_empty_value)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\82109\OneDrive\Desktop\ssafy\������(�ڵ���)\261109Docker_kafka����\Docker_Kafka_�ڵ���ǽ���_20261109\���ÿ�\tests\test_contracts.py", line 79, in test_consume_null_key_empty_value
+    self.assertEqual(q10.collect([message(b'')]),[dict(key=None,value='',partition=0,offset=0)])
+                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\82109\OneDrive\Desktop\ssafy\������(�ڵ���)\261109Docker_kafka����\Docker_Kafka_�ڵ���ǽ���_20261109\���ÿ�\tasks\q10_consumer.py", line 8, in collect
+    raise NotImplementedError("Q10 decode")
+NotImplementedError: Q10 decode
+
+======================================================================
+ERROR: test_consume_unicode (__main__.ExamTests.test_consume_unicode)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\82109\OneDrive\Desktop\ssafy\������(�ڵ���)\261109Docker_kafka����\Docker_Kafka_�ڵ���ǽ���_20261109\���ÿ�\tests\test_contracts.py", line 76, in test_consume_unicode
+    self.assertEqual(q10.collect([message('���'.encode(),'����'.encode(),2,8)]),
+                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\82109\OneDrive\Desktop\ssafy\������(�ڵ���)\261109Docker_kafka����\Docker_Kafka_�ڵ���ǽ���_20261109\���ÿ�\tasks\q10_consumer.py", line 8, in collect
+    raise NotImplementedError("Q10 decode")
+NotImplementedError: Q10 decode
+
+======================================================================
+ERROR: test_consumer_options (__main__.ExamTests.test_consumer_options)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\82109\OneDrive\Desktop\ssafy\������(�ڵ���)\261109Docker_kafka����\Docker_Kafka_�ڵ���ǽ���_20261109\���ÿ�\tests\test_contracts.py", line 72, in test_consumer_options
+    args,kw=q10.make_consumer(lambda *a,**kw:(a,kw),'other','server:9','group-x')
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\82109\OneDrive\Desktop\ssafy\������(�ڵ���)\261109Docker_kafka����\Docker_Kafka_�ڵ���ǽ���_20261109\���ÿ�\tasks\q10_consumer.py", line 3, in make_consumer
+    raise NotImplementedError("Q10 consumer options")
+NotImplementedError: Q10 consumer options
+
+======================================================================
+ERROR: test_producer_options (__main__.ExamTests.test_producer_options)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\82109\OneDrive\Desktop\ssafy\������(�ڵ���)\261109Docker_kafka����\Docker_Kafka_�ڵ���ǽ���_20261109\���ÿ�\tests\test_contracts.py", line 55, in test_producer_options
+    opts=q9.make_producer(lambda **kw:kw,"example:1234")
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\82109\OneDrive\Desktop\ssafy\������(�ڵ���)\261109Docker_kafka����\Docker_Kafka_�ڵ���ǽ���_20261109\���ÿ�\tasks\q09_producer.py", line 3, in make_producer
+    raise NotImplementedError("Q09 producer options")
+NotImplementedError: Q09 producer options
+
+======================================================================
+ERROR: test_relay_all_blank (__main__.ExamTests.test_relay_all_blank)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\82109\OneDrive\Desktop\ssafy\������(�ڵ���)\261109Docker_kafka����\Docker_Kafka_�ڵ���ǽ���_20261109\���ÿ�\tests\test_contracts.py", line 101, in test_relay_all_blank
+    p=Producer(); self.assertEqual(q11.relay([message(b' '),message(b'')],p),0)
+                                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\82109\OneDrive\Desktop\ssafy\������(�ڵ���)\261109Docker_kafka����\Docker_Kafka_�ڵ���ǽ���_20261109\���ÿ�\tasks\q11_pipeline.py", line 10, in relay
+    raise NotImplementedError("Q11 relay")
+NotImplementedError: Q11 relay
+
+======================================================================
+ERROR: test_relay_decode_error (__main__.ExamTests.test_relay_decode_error)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\82109\OneDrive\Desktop\ssafy\������(�ڵ���)\261109Docker_kafka����\Docker_Kafka_�ڵ���ǽ���_20261109\���ÿ�\tests\test_contracts.py", line 107, in test_relay_decode_error
+    with self.assertRaises(UnicodeDecodeError): q11.relay([message(b'\xff')],p)
+                                                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\82109\OneDrive\Desktop\ssafy\������(�ڵ���)\261109Docker_kafka����\Docker_Kafka_�ڵ���ǽ���_20261109\���ÿ�\tasks\q11_pipeline.py", line 10, in relay
+    raise NotImplementedError("Q11 relay")
+NotImplementedError: Q11 relay
+
+======================================================================
+ERROR: test_relay_empty (__main__.ExamTests.test_relay_empty)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\82109\OneDrive\Desktop\ssafy\������(�ڵ���)\261109Docker_kafka����\Docker_Kafka_�ڵ���ǽ���_20261109\���ÿ�\tests\test_contracts.py", line 99, in test_relay_empty
+    p=Producer(); self.assertEqual(q11.relay([],p),0); self.assertEqual(p.events,[('flush',)])
+                                   ^^^^^^^^^^^^^^^
+  File "C:\Users\82109\OneDrive\Desktop\ssafy\������(�ڵ���)\261109Docker_kafka����\Docker_Kafka_�ڵ���ǽ���_20261109\���ÿ�\tasks\q11_pipeline.py", line 10, in relay
+    raise NotImplementedError("Q11 relay")
+NotImplementedError: Q11 relay
+
+======================================================================
+ERROR: test_relay_normal_and_skip (__main__.ExamTests.test_relay_normal_and_skip)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\82109\OneDrive\Desktop\ssafy\������(�ڵ���)\261109Docker_kafka����\Docker_Kafka_�ڵ���ǽ���_20261109\���ÿ�\tests\test_contracts.py", line 93, in test_relay_normal_and_skip
+    self.assertEqual(q11.relay(rows,p),3)
+                     ^^^^^^^^^^^^^^^^^
+  File "C:\Users\82109\OneDrive\Desktop\ssafy\������(�ڵ���)\261109Docker_kafka����\Docker_Kafka_�ڵ���ǽ���_20261109\���ÿ�\tasks\q11_pipeline.py", line 10, in relay
+    raise NotImplementedError("Q11 relay")
+NotImplementedError: Q11 relay
+
+======================================================================
+ERROR: test_send_empty_list (__main__.ExamTests.test_send_empty_list)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\82109\OneDrive\Desktop\ssafy\������(�ڵ���)\261109Docker_kafka����\Docker_Kafka_�ڵ���ǽ���_20261109\���ÿ�\tests\test_contracts.py", line 65, in test_send_empty_list
+    p=Producer(); self.assertEqual(q9.send_records(p,[]),0); self.assertEqual(p.events,[("flush",)])
+                                   ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\82109\OneDrive\Desktop\ssafy\������(�ڵ���)\261109Docker_kafka����\Docker_Kafka_�ڵ���ǽ���_20261109\���ÿ�\tasks\q09_producer.py", line 9, in send_records
+    raise NotImplementedError("Q09 send")
+NotImplementedError: Q09 send
+
+======================================================================
+ERROR: test_send_empty_value (__main__.ExamTests.test_send_empty_value)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\82109\OneDrive\Desktop\ssafy\������(�ڵ���)\261109Docker_kafka����\Docker_Kafka_�ڵ���ǽ���_20261109\���ÿ�\tests\test_contracts.py", line 67, in test_send_empty_value
+    p=Producer(); self.assertEqual(q9.send_records(p,[{'store':'A','text':''}]),1)
+                                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\82109\OneDrive\Desktop\ssafy\������(�ڵ���)\261109Docker_kafka����\Docker_Kafka_�ڵ���ǽ���_20261109\���ÿ�\tasks\q09_producer.py", line 9, in send_records
+    raise NotImplementedError("Q09 send")
+NotImplementedError: Q09 send
+
+======================================================================
+ERROR: test_send_normal (__main__.ExamTests.test_send_normal)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\82109\OneDrive\Desktop\ssafy\������(�ڵ���)\261109Docker_kafka����\Docker_Kafka_�ڵ���ǽ���_20261109\���ÿ�\tests\test_contracts.py", line 61, in test_send_normal
+    p=Producer(); self.assertEqual(q9.send_records(p,[{'store':'A','text':'one'},{'store':'A','text':'two'}]),2)
+                                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\82109\OneDrive\Desktop\ssafy\������(�ڵ���)\261109Docker_kafka����\Docker_Kafka_�ڵ���ǽ���_20261109\���ÿ�\tasks\q09_producer.py", line 9, in send_records
+    raise NotImplementedError("Q09 send")
+NotImplementedError: Q09 send
+
+======================================================================
+ERROR: test_transform_bad_utf8 (__main__.ExamTests.test_transform_bad_utf8)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\82109\OneDrive\Desktop\ssafy\������(�ڵ���)\261109Docker_kafka����\Docker_Kafka_�ڵ���ǽ���_20261109\���ÿ�\tests\test_contracts.py", line 90, in test_transform_bad_utf8
+    with self.assertRaises(UnicodeDecodeError): q11.transform(b'\xff')
+                                                ^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\82109\OneDrive\Desktop\ssafy\������(�ڵ���)\261109Docker_kafka����\Docker_Kafka_�ڵ���ǽ���_20261109\���ÿ�\tasks\q11_pipeline.py", line 4, in transform
+    raise NotImplementedError("Q11 transform")
+NotImplementedError: Q11 transform
+
+======================================================================
+ERROR: test_transform_empty (__main__.ExamTests.test_transform_empty)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\82109\OneDrive\Desktop\ssafy\������(�ڵ���)\261109Docker_kafka����\Docker_Kafka_�ڵ���ǽ���_20261109\���ÿ�\tests\test_contracts.py", line 87, in test_transform_empty
+    def test_transform_empty(self): self.assertIsNone(q11.transform(b''))
+                                                      ^^^^^^^^^^^^^^^^^^
+  File "C:\Users\82109\OneDrive\Desktop\ssafy\������(�ڵ���)\261109Docker_kafka����\Docker_Kafka_�ڵ���ǽ���_20261109\���ÿ�\tasks\q11_pipeline.py", line 4, in transform
+    raise NotImplementedError("Q11 transform")
+NotImplementedError: Q11 transform
+
+======================================================================
+ERROR: test_transform_normal (__main__.ExamTests.test_transform_normal)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\82109\OneDrive\Desktop\ssafy\������(�ڵ���)\261109Docker_kafka����\Docker_Kafka_�ڵ���ǽ���_20261109\���ÿ�\tests\test_contracts.py", line 85, in test_transform_normal
+    def test_transform_normal(self): self.assertEqual(q11.transform(b' coffee '),'COFFEE')
+                                                      ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\82109\OneDrive\Desktop\ssafy\������(�ڵ���)\261109Docker_kafka����\Docker_Kafka_�ڵ���ǽ���_20261109\���ÿ�\tasks\q11_pipeline.py", line 4, in transform
+    raise NotImplementedError("Q11 transform")
+NotImplementedError: Q11 transform
+
+======================================================================
+ERROR: test_transform_spaces (__main__.ExamTests.test_transform_spaces)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\82109\OneDrive\Desktop\ssafy\������(�ڵ���)\261109Docker_kafka����\Docker_Kafka_�ڵ���ǽ���_20261109\���ÿ�\tests\test_contracts.py", line 88, in test_transform_spaces
+    def test_transform_spaces(self): self.assertIsNone(q11.transform(b' \t\n '))
+                                                       ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\82109\OneDrive\Desktop\ssafy\������(�ڵ���)\261109Docker_kafka����\Docker_Kafka_�ڵ���ǽ���_20261109\���ÿ�\tasks\q11_pipeline.py", line 4, in transform
+    raise NotImplementedError("Q11 transform")
+NotImplementedError: Q11 transform
+
+======================================================================
+ERROR: test_transform_unicode (__main__.ExamTests.test_transform_unicode)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\82109\OneDrive\Desktop\ssafy\������(�ڵ���)\261109Docker_kafka����\Docker_Kafka_�ڵ���ǽ���_20261109\���ÿ�\tests\test_contracts.py", line 86, in test_transform_unicode
+    def test_transform_unicode(self): self.assertEqual(q11.transform(' �ѱ� '.encode()),'�ѱ�')
+                                                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\82109\OneDrive\Desktop\ssafy\������(�ڵ���)\261109Docker_kafka����\Docker_Kafka_�ڵ���ǽ���_20261109\���ÿ�\tasks\q11_pipeline.py", line 4, in transform
+    raise NotImplementedError("Q11 transform")
+NotImplementedError: Q11 transform
+
+----------------------------------------------------------------------
+Ran 26 tests in 0.194s
+
+FAILED (errors=23)
